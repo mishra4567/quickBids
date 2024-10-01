@@ -1,0 +1,9 @@
+<?php
+session_start();
+unset($_SESSION['QBADMIN_LOGIN']);
+unset($_SESSION['QBUSER_ID']);
+unset($_SESSION['QBADMIN_USERNAME']);
+unset($_SESSION['QBADMIN_ROLE']);
+unset($_SESSION['QBADMIN_MENEGE']);
+header('location:./login.php');
+die();
