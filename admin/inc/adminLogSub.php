@@ -14,8 +14,12 @@ if ($check_user > 0) {
         $_SESSION['QBADMIN_LOGIN'] = 'yes';
         $_SESSION['QBUSER_ID'] = $row['id'];
         $_SESSION['QBADMIN_USERNAME']=$row['name'];
-        $_SESSION['QBADMIN_ROLE']=$row['role'];
-        $_SESSION['QBADMIN_MENEGE']=$row['manage'];
+        $_SESSION['QBADMIN_ROLE']=$row['rolle'];
+        // $_SESSION['QBADMIN_MENEGE']=$row['manage'];
+        $manageNumber = $row['manage'];
+        $adminManageNameSql = mysqli_query($con, "SELECT name FROM pb_dash_manage WHERE id='$manageNumber'");
+        $adminManageName = mysqli_fetch_assoc($adminManageNameSql);
+        $_SESSION['QBADMIN_MENEGE']=$adminManageName['name'];
         echo "valid";
         die();
     }

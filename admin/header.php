@@ -6,7 +6,13 @@ if (isset($_SESSION['QBADMIN_LOGIN']) && $_SESSION['QBADMIN_LOGIN'] != '') {
     header('location:./login.php');
 }
 $current_page = basename($_SERVER['PHP_SELF']);
-
+$menege_page = pathinfo($current_page, PATHINFO_FILENAME);
+echo $menege_page;
+$isTable = $_SESSION['QBADMIN_MENEGE'] == 'table' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+$isUIElements = $_SESSION['QBADMIN_MENEGE'] == 'uiEliments' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+$isforms=$_SESSION['QBADMIN_MENEGE'] == 'forms' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+$isIcons=$_SESSION['QBADMIN_MENEGE'] == 'icons' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+echo $_SESSION['QBADMIN_MENEGE'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,48 +72,68 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <i class="fas fa-house-chimney-user "></i>
                         <span class="mx-3">Dashboard</span>
                     </a>
-                    <?php 
-                        //   <?php if ($_SESSION['QBADMIN_ROLE'] == 1  || $_SESSION['QBADMIN_USERNAME'] == "admin") {
-                    if(isset($_SESSION['QBADMIN_ROLE']))
+                    <?php
+                    if ($isTable) {
                     ?>
-                    <a
-                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'table.php') ? 'adminActive' : ''; ?> "
-                        href="./table.php">
-                        <i class=" zmdi zmdi-menu"></i>
-                        <span class="mx-3">Tables</span>
-                    </a>
-                    <a
-                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'eliment.php') ? 'adminActive' : ''; ?> "
-                        href="./eliment.php">
-                        <i class="zmdi zmdi-collection-folder-image"></i>
-                        <span class="mx-3">UI Elements</span>
-                    </a>
-                    <a
-                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'forms.php') ? 'adminActive' : ''; ?>"
-                        href="./forms.php">
-                        <i class="fa fa-edit"></i>
-                        <span class="mx-3">Forms</span>
-                    </a>
-
-                    <a
-                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'icons.php') ? 'adminActive' : ''; ?>"
-                        href="./icons.php">
-                        <i class="fa-solid fa-code"></i>
-                        <span class="mx-3">Icons</span>
-                    </a>
-                    <a
-                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
-                        href="./login.php">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        <span class="mx-3">Login</span>
-                    </a>
+                        <a
+                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'table.php') ? 'adminActive' : ''; ?> "
+                            href="./table.php">
+                            <i class=" zmdi zmdi-menu"></i>
+                            <span class="mx-3">Tables</span>
+                        </a>
+                    <?php }
+                    if ($isUIElements) {
+                    ?>
+                        <a
+                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'uiEliments.php') ? 'adminActive' : ''; ?> "
+                            href="./uiEliments.php">
+                            <i class="zmdi zmdi-collection-folder-image"></i>
+                            <span class="mx-3">UI Elements</span>
+                        </a>
+                    <?php  }
+                    if ($isforms) {
+                    ?>
+                        <a
+                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'forms.php') ? 'adminActive' : ''; ?>"
+                            href="./forms.php">
+                            <i class="fa fa-edit"></i>
+                            <span class="mx-3">Forms</span>
+                        </a>
+                    <?php  }
+                    /**
+                    Later enter the Icons in manage table
+                     */
+                    if ($isIcons) {
+                    ?>
+                        <a
+                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'icons.php') ? 'adminActive' : ''; ?>"
+                            href="./icons.php">
+                            <i class="fa-solid fa-code"></i>
+                            <span class="mx-3">Icons</span>
+                        </a>
+                    <?php  }
+                    /**
+                    Later enter the Icons in manage table
+                     */
+                    if ($isTable) {
+                    ?>
+                        <a
+                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
+                            href="./login.php">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            <span class="mx-3">Login</span>
+                        </a>
+                    <?php  }
+                    /**
+                    Later enter the Icons in manage table
+                     */ ?>
+                    
                     <a
                         class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
                         href="./ragister.php">
                         <i class="fa-regular fa-registered"></i>
                         <span class="mx-3">Register</span>
                     </a>
-
                 </nav>
             </div>
             <div class="flex flex-col flex-1 overflow-hidden">

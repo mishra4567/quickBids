@@ -6,7 +6,11 @@ the daily life of the immortal king
 quickBids
 commend:-
 npx tailwindcss -i ./src/css/input.css -o ./src/css/style.css --watch
-
+08.10.2024:-  Add language:- ['English', 'Hindi', 'Bangla']
+create file:- language.php
+10.10.2024:- Add 404.php
+more velidation add 
+Add velidation menege will define (not defined page not open)
 
 git virsion control system
 

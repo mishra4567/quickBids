@@ -1,4 +1,6 @@
-            <?php include_once("./header.php") ?>
+            <?php include_once("./header.php");
+            isMenegeAdmin($menege_page);
+            ?>
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                 <div class="container px-6 py-8 mx-auto">
                     <div class="flex flex-col mt-8">

@@ -31,18 +31,27 @@ async function admin_register() {
     jQuery("#name_error").html("Please enter name");
     is_error = true;
     // alert ('Please enter name');
-  } else if (email == "") {
+  }
+  if (email == "") {
     jQuery("#email_error").html("Please enter email");
     is_error = true;
     // alert ('Please enter email');
-  } else if (manage == "") {
+  } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    jQuery("#email_error").html("Please enter a valid email");
+    is_error = true;
+  }
+  if (manage == "") {
     jQuery("#manage_error").html("Please select manage");
     is_error = true;
     // alert ('Please select manage');
-  } else if (password == "") {
+  }
+  if (password == "") {
     jQuery("#password_error").html("Please enter password");
     is_error = true;
     // alert ('Please enter password');
+  } else if (password.length < 6) {
+    jQuery("#password_error").html("Password must be at least 6 characters");
+    is_error = true;
   }
   if (!is_error) {
     const hashHex = await hashPassword(password);
@@ -78,10 +87,19 @@ async function admin_login() {
     jQuery("#login_email_error").html("Please enter email");
     is_error = "Yes";
     // alert ('Please enter email');
-  } else if (password == "") {
+  } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    jQuery("#login_email_error").html("Please enter a valid email");
+    is_error = true;
+  }
+  if (password == "") {
     jQuery("#login_password_error").html("Please enter password");
     is_error = "Yes";
     // alert ('Please enter password');
+  } else if (password.length < 6) {
+    jQuery("#login_password_error").html(
+      "Password must be at least 6 characters"
+    );
+    is_error = true;
   }
   if (!is_error) {
     const hashHex = await hashPassword(password);

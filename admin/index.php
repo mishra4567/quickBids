@@ -1,16 +1,16 @@
 <?php include_once("./header.php");
 require_once("../database/db.php");
+// $userManage= $_SESSION['QBUSER_ID'];
+// echo $userManage;
+// $userManageName= mysqli_fetch_assoc(mysqli_query($con, "SELECT manage FROM qb_dash_user WHERE id='$userManage'"));
+// $selectName = mysqli_fetch_assoc(mysqli_query($con, "SELECT * FROM pb_dash_manage WHERE id='$userManageName'"));
+// echo $selectName['name'];
+// echo $userManageName['manage'];
 ?>
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
   <div class="container px-6 py-8 mx-auto">
     <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
     <?php
-    // $selecUser = mysqli_query($con, "SELECT * FROM qb_dash_user");
-    // while ($row = mysqli_fetch_assoc($selecUser)) {
-    //   echo $row['name'];
-    //   $bal = Convert_uuencode($row['password']);
-    //   echo $bal;
-    // }
     ?>
     <div class="mt-4">
       <div class="flex flex-wrap -mx-6">
@@ -91,6 +91,10 @@ require_once("../database/db.php");
               <tr>
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  # &nbsp; &nbsp;ID
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Name
                 </th>
                 <th
@@ -101,424 +105,103 @@ require_once("../database/db.php");
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Status
                 </th>
-                <th
+                <!-- <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Role
-                </th>
+                </th> -->
                 <th
                   class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
               </tr>
             </thead>
 
             <tbody class="bg-white">
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
+              <?php
+              $i = 1;
+              while ($row = mysqli_fetch_assoc($selecUser)) {
+              ?>
+                <tr>
+                  <td
+                    class=" whitespace-no-wrap border-b border-gray-200">
+                    <div class="flex flex-row  items-center">
+                      <div class="ml-4">
+                        <div
+                          class="text-sm font-medium leading-5 text-gray-900">
+                          <?php echo $i++ ?>
+                        </div>
                       </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
+                      <div class="ml-4">
+                        <div class="text-sm leading-5 text-gray-500">
+                          <?php echo $row['id'] ?>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 w-10 h-10">
+                        <img
+                          class="w-10 h-10 rounded-full"
+                          src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
+                          alt="" />
                       </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
+
+                      <div class="ml-4">
+                        <div
+                          class="text-sm font-medium leading-5 text-gray-900">
+                          <?php echo $row['name'] ?>
+                        </div>
+                        <div class="text-sm leading-5 text-gray-500">
+                          <?php echo $row['email'] ?>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
+                  </td>
 
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <div class="text-sm leading-5 text-gray-900">
+                      <?php
+                      $manageId = $row["manage"];
+                      $displayManageName = mysqli_fetch_assoc(mysqli_query($con, "SELECT *FROM pb_dash_manage WHERE id='$manageId'"));
+                      echo $displayManageName['name'];
+                      ?>
                     </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
-                      </div>
+                    <div class="text-sm leading-5 text-gray-500">
+                      <!-- Web dev -->
                     </div>
-                  </div>
-                </td>
+                  </td>
 
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <?php if ($row['status'] == 1) { ?>
+                      <a <?php if ($_SESSION['QBADMIN_USERNAME'] == 'admin') {
+                            echo "href='?type=status&operation=deactive&id=" . $row['id'] . "'";
+                          } ?> class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</a>
+                    <?php } else { ?>
+                      <a <?php if ($_SESSION['QBADMIN_USERNAME'] == 'admin') {
+                            echo "href='?type=status&operation=deactive&id=" . $row['id'] . "'";
+                          } ?> class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 rounded-full">Deactive</a>
+                    <?php } ?>
+                    <!-- <span
+                          class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                          Active
+                        </span> -->
+                  </td>
 
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
+                  <!-- <td
+                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                    Owner
+                  </td> -->
 
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="../src/img/photo-1472099645785-5658abf4ff4e.avif"
-                        alt="" />
-                    </div>
-
-                    <div class="ml-4">
-                      <div
-                        class="text-sm font-medium leading-5 text-gray-900">
-                        John Doe
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        john@example.com
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    Software Engineer
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    Web dev
-                  </div>
-                </td>
-
-                <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  Owner
-                </td>
-
-                <td
-                  class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                  <a
-                    href="#"
-                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-              </tr>
+                  <td
+                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                    <a
+                      href="#"
+                      class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  </td>
+                </tr>
+              <?php } ?>
             </tbody>
           </table>
         </div>
