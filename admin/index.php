@@ -6,6 +6,7 @@ require_once("../database/db.php");
 // $selectName = mysqli_fetch_assoc(mysqli_query($con, "SELECT * FROM pb_dash_manage WHERE id='$userManageName'"));
 // echo $selectName['name'];
 // echo $userManageName['manage'];
+$selecVendor = mysqli_query($con, "SELECT * FROM qb_dash_user WHERE rolle='1'");
 ?>
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
   <div class="container px-6 py-8 mx-auto">
@@ -117,7 +118,7 @@ require_once("../database/db.php");
             <tbody class="bg-white">
               <?php
               $i = 1;
-              while ($row = mysqli_fetch_assoc($selecUser)) {
+              while ($row = mysqli_fetch_assoc($selecVendor)) {
               ?>
                 <tr>
                   <td
@@ -163,8 +164,8 @@ require_once("../database/db.php");
                     <div class="text-sm leading-5 text-gray-900">
                       <?php
                       $manageId = $row["manage"];
-                      $displayManageName = mysqli_fetch_assoc(mysqli_query($con, "SELECT *FROM pb_dash_manage WHERE id='$manageId'"));
-                      echo $displayManageName['name'];
+                      $displayVendorName = mysqli_fetch_assoc(mysqli_query($con, "SELECT *FROM qb_dash_manage WHERE id='$manageId'"));
+                      echo $displayVendorName['name'];
                       ?>
                     </div>
                     <div class="text-sm leading-5 text-gray-500">

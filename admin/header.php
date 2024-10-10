@@ -1,18 +1,28 @@
 <?php
 require_once("../database/db.php");
 require_once("./inc/functions.php");
+/**
+ * Login Velidation
+ */
 if (isset($_SESSION['QBADMIN_LOGIN']) && $_SESSION['QBADMIN_LOGIN'] != '') {
 } else {
     header('location:./login.php');
 }
+/**
+ * Navigation Page Velidation
+ */
 $current_page = basename($_SERVER['PHP_SELF']);
 $menege_page = pathinfo($current_page, PATHINFO_FILENAME);
-echo $menege_page;
 $isTable = $_SESSION['QBADMIN_MENEGE'] == 'table' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
 $isUIElements = $_SESSION['QBADMIN_MENEGE'] == 'uiEliments' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
-$isforms=$_SESSION['QBADMIN_MENEGE'] == 'forms' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
-$isIcons=$_SESSION['QBADMIN_MENEGE'] == 'icons' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
-echo $_SESSION['QBADMIN_MENEGE'];
+$isforms = $_SESSION['QBADMIN_MENEGE'] == 'forms' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+$isIcons = $_SESSION['QBADMIN_MENEGE'] == 'icons' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+// echo $_SESSION['QBADMIN_MENEGE'];
+include_once("./inc/sql.php");
+/**
+ * Default Image Velidation 
+ */
+include_once("./inc/imageValid.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +137,7 @@ echo $_SESSION['QBADMIN_MENEGE'];
                     /**
                     Later enter the Icons in manage table
                      */ ?>
-                    
+
                     <a
                         class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
                         href="./ragister.php">
@@ -237,7 +247,7 @@ echo $_SESSION['QBADMIN_MENEGE'];
                                 class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
                                 <img
                                     class="object-cover w-full h-full"
-                                    src="../src/img/photo-1528892952291-009c663ce843.avif"
+                                    src="<?php echo $vendorPhotoPath ?>"
                                     alt="Your avatar" />
                             </button>
 
@@ -256,7 +266,7 @@ echo $_SESSION['QBADMIN_MENEGE'];
                                     href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
                                 <a
-                                    href="#"
+                                    href="./profile.php"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
                                 <a
                                     href="./logout.php"

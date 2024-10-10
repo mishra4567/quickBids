@@ -39,7 +39,3 @@ function isMenegeAdmin($menege_page)
         exit;
     }
 }
-
-?>
-
-

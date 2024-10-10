@@ -1,7 +1,7 @@
 <?php
 require_once("../database/db.php");
 require("./inc/language.php");
-require("./inc/functions.php");
+// require("./inc/functions.php");
 ?>
 
 <!DOCTYPE html>
