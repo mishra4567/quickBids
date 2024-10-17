@@ -23,6 +23,11 @@ $translations = [
         'forgot_password'=> 'Forgot your password?',
         'sign_in'=> 'Sign In',
         'accept_the'=> 'I accept the',
+        'instant'=>'Instant',
+        'access'=>'Access',
+        'continue'=>'Continue',
+        'with'=>'With',
+        'register'=>'Register',
     ],
     'hindi' => [
         'create_account' => 'खाता बनाएं',
@@ -38,6 +43,12 @@ $translations = [
         'forgot_password' => 'अपना कूट शब्द भूल गए?',
         'sign_in'=> 'दाखिल करना',
         'accept_the' => 'मुझे स्वीकार है',
+        'instant' => 'तुरंत',
+        'access' => 'पहुँच',
+        'continue' => 'जारी रखना',
+        'with'=> 'साथ',
+        'register' => 'पंजीकरण करवाना',
+
     ],
     'bangla'=>[
         'create_account' => 'একটি অ্যাকাউন্ট তৈরি করুন',
@@ -53,5 +64,11 @@ $translations = [
         'forgot_password' => 'আপনার পাসওয়ার্ড ভুলে গেছেন?',
         'sign_in' => 'সাইন ইন করুন',
         'accept_the' => 'আমি গ্রহণ করি',
+        'instant' => 'তাত্ক্ষণিক',
+        'access' => 'প্রবেশ',
+        'continue' => 'চালিয়ে যান',
+        'with'=> 'সঙ্গে',
+        'register' => 'নিবন্ধন',
+
     ],
 ];

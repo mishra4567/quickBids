@@ -23,7 +23,7 @@ async function admin_register() {
   jQuery(".field_error").html("");
   let name = jQuery("#name").val();
   let email = jQuery("#email").val();
-  let manage = jQuery("#manage").val();
+  // let manage = jQuery("#manage").val();
   let password = jQuery("#password").val();
   // const hashPassword = CryptoJS.SHA256(password).toString();
   let is_error = false;
@@ -40,11 +40,11 @@ async function admin_register() {
     jQuery("#email_error").html("Please enter a valid email");
     is_error = true;
   }
-  if (manage == "") {
-    jQuery("#manage_error").html("Please select manage");
-    is_error = true;
-    // alert ('Please select manage');
-  }
+  // if (manage == "") {
+  //   jQuery("#manage_error").html("Please select manage");
+  //   is_error = true;
+  //   // alert ('Please select manage');
+  // }
   if (password == "") {
     jQuery("#password_error").html("Please enter password");
     is_error = true;
@@ -55,14 +55,14 @@ async function admin_register() {
   }
   if (!is_error) {
     const hashHex = await hashPassword(password);
-    console.log(name, email, manage, hashHex);
+    console.log(name, email, hashHex);
     jQuery.ajax({
       url: "inc/adminRegiSub.php",
       type: "post",
       data: {
         name: name,
         email: email,
-        manage: manage,
+        // manage: manage,
         password: hashHex,
       },
       success: function (result) {

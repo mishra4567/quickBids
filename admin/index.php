@@ -1,12 +1,36 @@
 <?php include_once("./header.php");
 require_once("../database/db.php");
-// $userManage= $_SESSION['QBUSER_ID'];
-// echo $userManage;
-// $userManageName= mysqli_fetch_assoc(mysqli_query($con, "SELECT manage FROM qb_dash_user WHERE id='$userManage'"));
-// $selectName = mysqli_fetch_assoc(mysqli_query($con, "SELECT * FROM pb_dash_manage WHERE id='$userManageName'"));
-// echo $selectName['name'];
-// echo $userManageName['manage'];
 $selecVendor = mysqli_query($con, "SELECT * FROM qb_dash_user WHERE rolle='1'");
+if (isset($_GET['type']) && $_GET['type'] != '') {
+  $type = get_safe_value($con, $_GET['type']);
+  if ($type == 'status') {
+    $operation = get_safe_value($con, $_GET['operation']);
+    $id = get_safe_value($con, $_GET['id']);
+    if ($operation == 'active') {
+      $status = '1';
+    } else {
+      $status = '0';
+    }
+    $update_status_sql = "UPDATE qb_dash_user SET status='$status' WHERE id='$id'";
+    mysqli_query($con, $update_status_sql);
+    // Redirect to the same page (or another page if you want)
+  }
+  if ($type == 'trash') {
+    $id = get_safe_value($con, $_GET['id']);
+    $status = 0;
+    $trash = 1;
+    $update_trash_sql = "UPDATE qb_dash_user SET status='$status' trash='$trash' WHERE id='$id'";
+    mysqli_query($con, $update_trash_sql);
+  }
+  // if ($type == 'delete') {
+  //   $id = get_safe_value($con, $_GET['id']);
+  //   $delete_sql = "DELETE FROM admin WHERE id='$id'";
+  //   mysqli_query($con, $delete_sql);
+  // }
+  echo '<script>window.location.href = "' . $current_page . '";</script>';
+  // header("Location: " . $menege_page);
+  exit();
+}
 ?>
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
   <div class="container px-6 py-8 mx-auto">
@@ -176,33 +200,41 @@ $selecVendor = mysqli_query($con, "SELECT * FROM qb_dash_user WHERE rolle='1'");
                   <td
                     class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                     <?php if ($row['status'] == 1) { ?>
-                      <a <?php if ($_SESSION['QBADMIN_USERNAME'] == 'admin') {
+                      <a <?php if ($isAdmin) {
                             echo "href='?type=status&operation=deactive&id=" . $row['id'] . "'";
                           } ?> class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</a>
                     <?php } else { ?>
-                      <a <?php if ($_SESSION['QBADMIN_USERNAME'] == 'admin') {
-                            echo "href='?type=status&operation=deactive&id=" . $row['id'] . "'";
+                      <a <?php if ($isAdmin) {
+                            echo "href='?type=status&operation=active&id=" . $row['id'] . "'";
                           } ?> class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 rounded-full">Deactive</a>
                     <?php } ?>
-                    <!-- <span
-                          class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                          Active
-                        </span> -->
                   </td>
-
                   <!-- <td
                     class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                     Owner
                   </td> -->
-
                   <td
                     class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                    <a
-                      href="#"
-                      class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                    <?php if ($isAdmin) { ?>
+                      <a href="#"
+                        class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                    <?php
+                    } else {
+                    ?>
+                      <a
+                        class="text-indigo-600 hover:text-indigo-900">/</a>
+                      <?php } ?>&nbsp;&nbsp;
+                      <?php if ($isAdmin) { ?>
+                        <a <?php echo "href='?type=trash&id=" . $row['id'] . "'" ?>
+                          class="text-red-500 hover:text-green-500">Delete</a>
+                      <?php } ?>
                   </td>
+                  <!-- <td
+                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                  </td> -->
                 </tr>
-              <?php } ?>
+              <?php
+              } ?>
             </tbody>
           </table>
         </div>

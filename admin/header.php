@@ -11,14 +11,15 @@ if (isset($_SESSION['QBADMIN_LOGIN']) && $_SESSION['QBADMIN_LOGIN'] != '') {
 /**
  * Navigation Page Velidation
  */
+$isAdmin = $_SESSION['QBADMIN_USERNAME'] == 'admin';
 $current_page = basename($_SERVER['PHP_SELF']);
 $menege_page = pathinfo($current_page, PATHINFO_FILENAME);
-$isTable = $_SESSION['QBADMIN_MENEGE'] == 'table' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
-$isUIElements = $_SESSION['QBADMIN_MENEGE'] == 'uiEliments' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
-$isforms = $_SESSION['QBADMIN_MENEGE'] == 'forms' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
-$isIcons = $_SESSION['QBADMIN_MENEGE'] == 'icons' || $_SESSION['QBADMIN_USERNAME'] == 'admin';
+$isTable = $_SESSION['QBADMIN_MENEGE'] == 'table' || $isAdmin;
+$isUIElements = $_SESSION['QBADMIN_MENEGE'] == 'uiEliments' || $isAdmin;
+$isforms = $_SESSION['QBADMIN_MENEGE'] == 'forms' || $isAdmin;
+$isIcons = $_SESSION['QBADMIN_MENEGE'] == 'icons' || $isAdmin;
+$isMarketing = $_SESSION['QBADMIN_MENEGE'] == 'marketing' || $isAdmin;
 // echo $_SESSION['QBADMIN_MENEGE'];
-include_once("./inc/sql.php");
 /**
  * Default Image Velidation 
  */
@@ -110,6 +111,14 @@ include_once("./inc/imageValid.php");
                             <span class="mx-3">Forms</span>
                         </a>
                     <?php  }
+                    if ($isMarketing) { ?>
+                        <a
+                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'marketing.php') ? 'adminActive' : ''; ?>"
+                            href="./marketing.php">
+                            <i class="fa-solid fa-rectangle-ad"></i>
+                            <span class="mx-3">Marketing</span>
+                        </a>
+                    <?php }
                     /**
                     Later enter the Icons in manage table
                      */
@@ -137,7 +146,6 @@ include_once("./inc/imageValid.php");
                     /**
                     Later enter the Icons in manage table
                      */ ?>
-
                     <a
                         class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
                         href="./ragister.php">
