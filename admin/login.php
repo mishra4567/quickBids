@@ -1,5 +1,5 @@
 <?php
-require_once("../database/db.php");
+require_once("./inc/db.php");
 require("./inc/language.php");
 // require("./inc/functions.php");
 ?>

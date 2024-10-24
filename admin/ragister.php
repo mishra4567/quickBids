@@ -1,5 +1,5 @@
 <?php
-require_once("../database/db.php");
+require_once("./inc/db.php");
 require("./inc/language.php");
 require("./inc/functions.php");
 // $selectManageSql = mysqli_query($con, "SELECT * FROM pb_dash_manage WHERE status='1' AND role='1'");

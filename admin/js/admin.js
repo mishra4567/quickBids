@@ -124,3 +124,27 @@ async function admin_login() {
     });
   }
 }
+
+$(document).ready(function () {
+  // Capture the input event on the search bar
+  $("#table_search").on("keyup", function () {
+    var tableSearchQuery = $(this).val();
+    // var searchPage = $("#profile").val(); // Get the profile value
+    console.log(tableSearchQuery);
+    // AJAX request
+    if (tableSearchQuery != "") {
+      $("#tableProfileVendor").css("display","none");
+      $.ajax({
+        url: "tableSearch.php", // PHP file to send request to
+        type: "POST",
+        data: { query: tableSearchQuery }, // Send both query and profile
+        success: function (data) {
+          // Update the table with the data returned from PHP
+          $("#tableSearchResult").html(data);
+        },
+      });
+    } else {
+      $("#tableSearchResult").css("display", "none");
+    }
+  });
+});

@@ -1,22 +1,75 @@
-<?php include_once("./header.php");
-require_once("./inc/db.php");
-// require_once("./inc/functions.php");
-isMenegeAdmin($menege_page);
+<?php
+require_once("./header.php");
 $reload_page = '<script>window.location.href = "' . $current_page . '";</script>';
-$selecVendor = mysqli_query($con, "SELECT * FROM qb_dash_user WHERE trash='1'");
+// $selecVendor = mysqli_query($con, "SELECT * FROM qb_dash_user WHERE rolle='1' AND trash='0'");
+// Select vendors from the database
+$stmt = $con->prepare("SELECT qb_dash_user.*, qb_dash_manage.name AS manage_name FROM qb_dash_user 
+                       LEFT JOIN qb_dash_manage ON qb_dash_user.manage = qb_dash_manage.id 
+                       WHERE qb_dash_user.rolle = '1' AND qb_dash_user.trash = '0'");
+$stmt->execute();
+$selecVendor = $stmt->get_result();
+
+// echo $selecVendor;
 include_once("./inc/activeDeactiveDelete.php");
+if ($isAdmin) {
+    $uid = $_SESSION['QBUSER_ID'];
+    $trashCount = 0;
+    $trashSql = mysqli_query($con, "SELECT * FROM qb_dash_user WHERE trash='1'");
+    $trashCount = mysqli_num_rows($trashSql);
+}
+// isMenegeAdmin($menege_page);
 ?>
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
     <div class="container px-6 py-8 mx-auto">
+        <div class="mt-8"></div>
         <div class="flex flex-col mt-8">
             <div
                 class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div class="text-2xl font-semibold leading-tight mb-4">
-                    <a href="./user.php" class="text-xl font-semibold leading-tight text-orange-400 rounded-full mb-4">Back</a>&nbsp;&nbsp;Employee Table
-                </div>
                 <div
                     class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                    <table class="min-w-full">
+                    <table class="min-w-full text-sm px-2 font-semibold">
+                        <tbody class="bg-white">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-l border-gray-400 text-blue-400">
+                                    Notifications:&nbsp; <a class="text-green-400">jghu</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <a href="./trash.php" class="inline-flex px-2 text-xs bg-orange-100 text-red-500 hover:text-red-600 font-bold rounded-full">
+                                        Trash&nbsp;
+                                        <p class="rounded-full text-blue-600"> <?php if ($isAdmin) {
+                                                                                    echo $trashCount;
+                                                                                } ?></p>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <a class="inline-flex px-2 text-xs bg-orange-100 text-red-500 hover:text-red-600 font-bold rounded-full">
+                                        Trash
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <a class="inline-flex px-2 text-xs bg-orange-100 text-red-500 hover:text-red-600 font-bold rounded-full">
+                                        Trash
+                                    </a>
+                                </td>
+                                <td class=" py-4 whitespace-nowrap border-b border-gray-200">
+                                    <div id="table-search-bar" class="inline-flex  text-xs">
+                                        <input type="text" id="table_search" class="w-52 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none px-2 py-1" placeholder="Search...">
+                                        <input type="hidden" id="profile" value="<?php echo $menege_page ?>">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col mt-8">
+            <div
+                class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <h2 class="text-2xl font-semibold leading-tight mb-4">Employee Table</h2>
+                <div
+                    class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                    <table class="min-w-full" id="tableProfileVendor">
                         <thead>
                             <tr>
                                 <th
@@ -43,7 +96,7 @@ include_once("./inc/activeDeactiveDelete.php");
                         <tbody class="bg-white">
                             <?php
                             $i = 1;
-                            while ($row = mysqli_fetch_assoc($selecVendor)) {
+                            while ($row = $selecVendor->fetch_assoc()) {
                             ?>
                                 <tr>
                                     <td
@@ -88,9 +141,7 @@ include_once("./inc/activeDeactiveDelete.php");
                                         class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <div class="text-sm leading-5 text-gray-900">
                                             <?php
-                                            $manageId = $row["manage"];
-                                            $displayVendorName = mysqli_fetch_assoc(mysqli_query($con, "SELECT *FROM qb_dash_manage WHERE id='$manageId'"));
-                                            echo $displayVendorName['name'];
+                                            echo $row['manage_name'];
                                             ?>
                                         </div>
                                         <div class="text-sm leading-5 text-gray-500">
@@ -100,14 +151,14 @@ include_once("./inc/activeDeactiveDelete.php");
 
                                     <td
                                         class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <?php if ($row['status'] == 0 || $row['trash'] == 1) { ?>
+                                        <?php if ($row['status'] == 1) { ?>
                                             <a <?php if ($isAdmin) {
-                                                    echo "href='?type=restore&use=profile&id=" . $row['id'] . "'";
-                                                } ?>class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 rounded-full">Restore</a>
+                                                    echo "href='?type=status&use=profile&operation=deactive&id=" . $row['id'] . "'";
+                                                } ?> class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</a>
                                         <?php } else { ?>
                                             <a <?php if ($isAdmin) {
-                                                    echo "href='?type=restore&use=profile&id=" . $row['id'] . "'";
-                                                } ?>class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Trash</a>
+                                                    echo "href='?type=status&use=profile&operation=active&id=" . $row['id'] . "'";
+                                                } ?> class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 rounded-full">Deactive</a>
                                         <?php } ?>
                                     </td>
                                     <td
@@ -122,7 +173,7 @@ include_once("./inc/activeDeactiveDelete.php");
                                                 class="text-indigo-600 hover:text-indigo-900">/</a>
                                             <?php } ?>&nbsp;&nbsp;
                                             <?php if ($isAdmin) { ?>
-                                                <a <?php echo "href='?type=trash&id=" . $row['id'] . "'" ?>
+                                                <a <?php echo "href='?type=trash&use=profile&id=" . $row['id'] . "'" ?>
                                                     class="text-red-500 hover:text-green-500">Delete</a>
                                             <?php } ?>
                                     </td>
@@ -130,10 +181,18 @@ include_once("./inc/activeDeactiveDelete.php");
                             <?php
                             } ?>
                         </tbody>
+                        <!-- <tbody class="bg-white">
+
+                        </tbody> -->
                     </table>
+                    <table class=" min-w-full" id="tableSearchResult">
+                    </table>
+
                 </div>
             </div>
         </div>
     </div>
 </main>
-<?php include_once("./footer.php") ?>
+<?php
+require_once("./footer.php");
+?>

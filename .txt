@@ -11,6 +11,14 @@ create file:- language.php
 10.10.2024:- Add 404.php
 more velidation add 
 Add velidation menege will define (not defined page not open)
+24.10.2024:-
+Add user.php 
+For Display User Details (Vendor & Shop User)
+Add TableSearch.php 
+For Search whole Admin panales (Showing All Table deta what you want )
+Add activeDeactiveDelete.php 
+For Active, Deactive, Delete (Add all Table data)
+AND {Refine All pages} 
 
 git virsion control system
 

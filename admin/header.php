@@ -1,5 +1,5 @@
 <?php
-require_once("../database/db.php");
+require_once("./inc/db.php");
 require_once("./inc/functions.php");
 /**
  * Login Velidation
@@ -11,19 +11,7 @@ if (isset($_SESSION['QBADMIN_LOGIN']) && $_SESSION['QBADMIN_LOGIN'] != '') {
 /**
  * Navigation Page Velidation
  */
-$isAdmin = $_SESSION['QBADMIN_USERNAME'] == 'admin';
-$current_page = basename($_SERVER['PHP_SELF']);
-$menege_page = pathinfo($current_page, PATHINFO_FILENAME);
-$isTable = $_SESSION['QBADMIN_MENEGE'] == 'table' || $isAdmin;
-$isUIElements = $_SESSION['QBADMIN_MENEGE'] == 'uiEliments' || $isAdmin;
-$isforms = $_SESSION['QBADMIN_MENEGE'] == 'forms' || $isAdmin;
-$isIcons = $_SESSION['QBADMIN_MENEGE'] == 'icons' || $isAdmin;
-$isMarketing = $_SESSION['QBADMIN_MENEGE'] == 'marketing' || $isAdmin;
-// echo $_SESSION['QBADMIN_MENEGE'];
-/**
- * Default Image Velidation 
- */
-include_once("./inc/imageValid.php");
+require_once("./inc/sql.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,13 +22,23 @@ include_once("./inc/imageValid.php");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- <link href="https://cdn.tailwindcss.com" rel="stylesheet"> -->
     <title>quickBids</title>
+    <!-- Main tailwind css files -->
+    <link rel="stylesheet" href="../src/css/admin.css" />
+    <link rel="stylesheet" href="../src/css/style.css">
+    <!-- JQuery js files -->
+    <script src="../src/vendor/jquery/jjquery-3.7.1.min.js"></script>
+    <!-- Font awesome icon files -->
     <link rel="stylesheet" href="../src/vendor/font-awesome-4.7/css/font-awesome.min.css">
     <link rel="stylesheet" href="../src/vendor/font-awesome-6/css/all.min.css">
     <link rel="stylesheet" href="../src/vendor/font-awesome-6/css/fontawesome.min.css">
+    <!-- Material design icon files  -->
     <link rel="stylesheet" href="../src/vendor/mdi-font/css/material-design-iconic-font.min.css">
+    <!-- Sidebar js -->
     <script src="../src/vendor/jsdelivr/alpine.min.js"></script>
-    <link rel="stylesheet" href="../src/css/admin.css" />
-    <link rel="stylesheet" href="../src/css/style.css">
+    <!-- Webpage table data style css files -->
+    <!-- <link rel="stylesheet" href="../src/vendor/dataTable/jquery.dataTables.min.css"> -->
+    <!-- Webpage table data style js files -->
+    <!-- <script src="../src/vendor/dataTable/jquery.dataTables.min.js"></script> -->
 </head>
 
 <body class="h-screen overflow-hidden" style="background: #edf2f7">
@@ -118,34 +116,25 @@ include_once("./inc/imageValid.php");
                             <i class="fa-solid fa-rectangle-ad"></i>
                             <span class="mx-3">Marketing</span>
                         </a>
-                    <?php }
-                    /**
-                    Later enter the Icons in manage table
-                     */
-                    if ($isIcons) {
-                    ?>
-                        <a
-                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'icons.php') ? 'adminActive' : ''; ?>"
-                            href="./icons.php">
-                            <i class="fa-solid fa-code"></i>
-                            <span class="mx-3">Icons</span>
-                        </a>
-                    <?php  }
-                    /**
-                    Later enter the Icons in manage table
-                     */
-                    if ($isTable) {
-                    ?>
-                        <a
-                            class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
-                            href="./login.php">
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                            <span class="mx-3">Login</span>
-                        </a>
-                    <?php  }
-                    /**
-                    Later enter the Icons in manage table
-                     */ ?>
+                    <?php } ?>
+                    <a
+                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'user.php') ? 'adminActive' : ''; ?>"
+                        href="./user.php">
+                        <i class="fas fa-user-large "></i>
+                        <span class="mx-3">User</span>
+                    </a>
+                    <a
+                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100 <?php echo ($current_page == 'icons.php') ? 'adminActive' : ''; ?>"
+                        href="./icons.php">
+                        <i class="fa-solid fa-code"></i>
+                        <span class="mx-3">Icons</span>
+                    </a>
+                    <a
+                        class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
+                        href="./login.php">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span class="mx-3">Login</span>
+                    </a>
                     <a
                         class="flex items-center px-6 py-2 mt-4 text-gray-400 hover:text-gray-100"
                         href="./ragister.php">
@@ -163,16 +152,16 @@ include_once("./inc/imageValid.php");
                             class="text-gray-500 focus:outline-none lg:hidden">
                             <i class=" zmdi zmdi-menu"></i>
                         </button>
-
                         <div class="relative mx-4 lg:mx-0">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                <i class="fas fa-search"></i>
-                            </span>
-
-                            <input
-                                class="w-32 pl-10 pr-4 rounded-md form-input sm:w-64 focus:border-indigo-600"
-                                type="text"
-                                placeholder="Search" />
+                            <form action="">
+                                <input
+                                    class="w-32 pl-3 px-4 pr-4 rounded-lg form-input sm:w-64 shadow-sm focus:ring focus:ring-accent  focus:border-indigo-600 focus:outline-none"
+                                    type="text"
+                                    placeholder="Search" />
+                                <button class="absolute inset-y-0 right-0 flex items-center pr-3 shadow-sm">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 <?php
-require_once("../../database/db.php");
+require_once("./db.php");
 require_once("./functions.php");
 $rolle = "1";
 $status = "1";

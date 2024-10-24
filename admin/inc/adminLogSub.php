@@ -1,6 +1,6 @@
 <?php
 // session_start();
-require_once("../../database/db.php");
+require_once("./db.php");
 require_once("./functions.php");
 $email = get_safe_value($con, $_POST['email']);
 $password =sha1( get_safe_value($con, $_POST['password']));
